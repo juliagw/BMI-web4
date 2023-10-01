@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #ffa07a, #ff5733);
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BMI Calculator</h1>
+        <label for="weight">Enter your weight (kg):</label>
+        <input type="text" id="weight" placeholder="e.g., 70.5" />
+        <br />
+        <label for="height">Enter your height (m):</label>
+        <input type="text" id="height" placeholder="e.g., 1.75" />
+        <br />
+        <button onclick="calculateBMI()">Calculate BMI</button>
+    </div>
+
+    <div class="container" id="resultScreen" style="display:none;">
+        <h2>Your BMI:</h2>
+        <p id="bmiResult"></p>
+        <h2>Classification:</h2>
+        <p id="bmiClassification"></p>
+        <button onclick="clearInput()">Calculate Again</button>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById("weight").value);
+            const height = parseFloat(document.getElementById("height").value);
+            const bmi = weight / (height * height);
+            const resultScreen = document.getElementById("resultScreen");
+            const bmiResult = document.getElementById("bmiResult");
+            const bmiClassification = document.getElementById("bmiClassification");
+
+            resultScreen.style.display = "block";
+            bmiResult.textContent = `Your BMI: ${bmi.toFixed(2)} kg/m²`;
+
+            if (bmi < 18.5) {
+                bmiClassification.textContent = "Classification: Underweight";
+            } else if (bmi >= 18.5 && bmi < 25) {
+                bmiClassification.textContent = "Classification: Normal Weight";
+            } else {
+                bmiClassification.textContent = "Classification: Overweight";
+            }
+        }
+
+        function clearInput() {
+            document.getElementById("weight").value = "";
+            document.getElementById("height").value = "";
+            document.getElementById("resultScreen").style.display = "none";
+        }
+    </script>
+</body>
+</html>
